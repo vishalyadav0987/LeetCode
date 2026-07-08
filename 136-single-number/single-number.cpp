@@ -1,17 +1,11 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        map<int,int> mpp;
+        int singleEle = 0;
         for(int i=0;i<nums.size();i++){
-            mpp[nums[i]]++; 
+            singleEle ^= nums[i];
         }
 
-        for(auto x: mpp){
-            if(x.second == 1){
-                return x.first;
-            }
-        }
-
-        return -1;
+        return singleEle;
     }
 };
