@@ -1,20 +1,22 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        for(int i=0;i<nums.size(); i++){
-            int ele = nums[i];
-            int cnt = 0;
-            for(int j=0;j<nums.size();j++){
-                if(nums[j] == ele){
-                    cnt++;
-                }
+        // better approch
+        if(nums.size() == 1) return nums[0];
+        sort(nums.begin(),nums.end());
+        int cnt = 1;
+        int ans = nums[0];
+        for(int i=1;i<nums.size();i++){
+            if(nums[i] == nums[i-1]){
+                cnt++;
+            }else{
+                cnt = 1;
+                ans = nums[i];
             }
-
-            if(cnt > nums.size() / 2){
-                return ele;
-            }
+            if(cnt > nums.size()/2) return ans;
         }
 
+        
         return -1;
     }
 };
