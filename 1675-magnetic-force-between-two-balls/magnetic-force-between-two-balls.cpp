@@ -1,7 +1,6 @@
 class Solution {
 public:
     bool isPossible(vector<int>& position, int m,int minimumAllowDistance){
-        sort(position.begin(),position.end());
         int magnetCnt = 1;
         int lastMagnet = position[0];
         for(int i=1;i<position.size();i++){
@@ -15,8 +14,9 @@ public:
         return false;
     }
     int maxDistance(vector<int>& position, int m) {
+        sort(position.begin(), position.end());
         int st=1; // minimum distance should place magnet is 1
-        int end = *max_element(position.begin(),position.end()) - *min_element(position.begin(),position.end()); // max of array - min of array = distance should place magnet
+        int end = position.back() - position.front(); // max of array - min of array = distance should place magnet
         int ans=-1;
 
         while(st<=end){
