@@ -4,7 +4,7 @@ public:
         int r = nums.size();
         int c = nums[0].size();
         int totalScore = 0;
-
+        // re solved these question
         for (int i = 0; i < c; i++) {
             int maxEle = -1;
             for (int j = 0; j < r; j++) {
