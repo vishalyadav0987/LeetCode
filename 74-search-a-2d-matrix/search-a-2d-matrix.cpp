@@ -1,16 +1,16 @@
 class Solution {
 public:
-    bool bs(vector<vector<int>>& matrix, int target,int row){
+    bool bs(vector<vector<int>>& matrix, int target, int row) {
         int n = matrix[0].size();
         int st = 0;
-        int end = n-1;
-        while(st<=end){
-            int mid = st + (end-st)/2;
-            if(target == matrix[row][mid]){
+        int end = n - 1;
+        while (st <= end) {
+            int mid = st + (end - st) / 2;
+            if (target == matrix[row][mid]) {
                 return true;
-            }else if(target > matrix[row][mid]){
+            } else if (target > matrix[row][mid]) {
                 st = mid + 1;
-            }else{
+            } else {
                 end = mid - 1;
             }
         }
@@ -25,22 +25,24 @@ public:
         // 4. for 2d array decrese the search space is main approach of "BS"
         // 5. Check target row[0][0] >= target && <= row[0][n-1]
         // 6. if target lies in single row then we apply class "bs" appraoch
+        // 7. again doing same Problem 14 Aug 2026
 
         int m = matrix.size();
         int n = matrix[0].size();
 
         int stRow = 0;
-        int endRow = m-1;
+        int endRow = m - 1;
 
-        while(stRow <= endRow){
-            int midRow = stRow + (endRow - stRow)/2;
-            if(target >= matrix[midRow][0] && target <= matrix[midRow][n-1]){
+        while (stRow <= endRow) {
+            int midRow = stRow + (endRow - stRow) / 2;
+            if (target >= matrix[midRow][0] &&
+                target <= matrix[midRow][n - 1]) {
                 // apply classic "BS" on single Row;
                 return bs(matrix, target, midRow);
-            }else if(target >= matrix[midRow][n-1]){
+            } else if (target >= matrix[midRow][n - 1]) {
                 // go DownWard in 2d array
                 stRow = midRow + 1;
-            }else{
+            } else {
                 endRow = midRow - 1;
             }
         }
