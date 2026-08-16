@@ -19,6 +19,7 @@ public:
 
                 // Number ko uske target index (nums[i] - 1) wali value ke saath
                 // swap karo
+                // again doing 16 August 2026
                 swap(nums[i], nums[nums[i] - 1]);
             }
         }
