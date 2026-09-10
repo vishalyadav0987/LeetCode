@@ -1,24 +1,26 @@
 class Solution {
 public:
-    void sets(vector<int>& nums,int index,vector<int>output,vector<vector<int>>& ans){
-        if(index >= nums.size()){
-            ans.push_back(output);
+    void getAllSubstes(vector<int>& nums, vector<int> ans, int i,vector<vector<int>>& allSubstes ){
+        // base case
+        if(i == nums.size()){
+            allSubstes.push_back(ans);
             return;
         }
 
-        // exclude , means ouput me include nh karenge iska mtlb ek index++
-        sets(nums,index+1,output,ans);
-        int element=nums[index];
-        // include karenge usko ouput me;
-        output.push_back(element);
-        sets(nums,index+1,output,ans);
+        // include the number in array call first
+        ans.push_back(nums[i]);
+        getAllSubstes(nums,ans,i+1,allSubstes); // then increment the i
 
+        // exclude call pop back the last number
+        ans.pop_back();
+        getAllSubstes(nums,ans,i+1,allSubstes); // then increment the i
     }
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>>ans;
-        vector<int> output;
-        int index=0;
-        sets(nums,index,output,ans);
-        return ans;
+        int i=0;
+        vector<vector<int>> allSubstes;
+        vector<int> ans;
+        getAllSubstes(nums,ans,i,allSubstes);
+
+        return allSubstes;
     }
 };
