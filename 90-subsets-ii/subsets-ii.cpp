@@ -1,29 +1,31 @@
 class Solution {
 public:
-void uniqueSets(vector<int>& nums, vector<int> output, int index,vector<vector<int>> &ans) {
-    if (index >= nums.size()) {
-        if (find(ans.begin(), ans.end(), output) == ans.end()) {  // Compare vectors
-            ans.push_back(output);
+    void getUniqueSubsets(vector<int>& nums,vector<int>& ans, int i,vector<vector<int>>& allSubsets){
+        if(i==nums.size()){
+            allSubsets.push_back(ans);
+            return;
         }
-        return;
-    }
-    
-    // exclude
-    uniqueSets(nums, output, index + 1, ans);
-    int element = nums[index];
-    // include karenge usko ouput me;
-    output.push_back(element);
-    uniqueSets(nums, output, index + 1, ans);
 
-}
-vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        // Again solve the same Problem
-        vector<vector<int>> ans;
-        int index = 0;
-        vector<int> output;
-        sort(nums.begin(), nums.end());
-        uniqueSets(nums, output, index, ans);
-        return ans;
+        // include the element
+        ans.push_back(nums[i]);
+        getUniqueSubsets(nums,ans,i+1,allSubsets);
+
+        // exclude case - remove element
+        ans.pop_back();
+
+        // Special case - sorted array
+        // [1,2,2,3]
+        // when i=1, when pop the element in exclude case then in i=2 we again include same
+        // element is 2
+        int idx = i+1;
+        while(idx < nums.size() && nums[idx-1] == nums[idx]) idx++;
+        getUniqueSubsets(nums,ans,idx++,allSubsets);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<int> ans;
+        vector<vector<int>> allSubsets;
+        getUniqueSubsets(nums,ans,0,allSubsets);
+        return allSubsets;
     }
 };
-
