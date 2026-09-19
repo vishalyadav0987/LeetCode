@@ -1,16 +1,14 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        // 1st way Sort Array use tow pointer ❌ because we want index
-        // 2nd way prefix sum
-        // 3rd  2 for loops
+        vector<int>ans;
+        int n=nums.size();
         unordered_map<int,int>mpp;
-        vector<int> ans;
-        for(int i=0;i<nums.size();i++){
-            int rem = target - nums[i];
-            if(mpp.find(rem) != mpp.end()){
+        for(int i=0;i<n;i++){
+            long long sum = target - nums[i];
+            if(mpp.find(sum) != mpp.end()){
                 ans.push_back(i);
-                ans.push_back(mpp[rem]);
+                ans.push_back(mpp[sum]);
             }
 
             mpp[nums[i]] = i;
