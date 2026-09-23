@@ -1,6 +1,7 @@
 class Solution {
 public:
     int diagonalSum(vector<vector<int>>& mat) {
+        // again
         int n = mat[0].size();
         if(n==1) return mat[0][0];
         int sum = 0;
