@@ -10,7 +10,6 @@
 class Solution {
 public:
     int guessNumber(int n) {
-        // Again doing 30-August-2026
          int start = 1;
             int end = n;
             while(start <= end){
