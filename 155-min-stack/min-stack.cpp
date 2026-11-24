@@ -1,73 +1,63 @@
 class MinStack {
-    long long mini; // Use long long here
-    stack<long long> s; // Use long long here for all calculations
-
 public:
-    MinStack() {}
-
-    void push(int val) {
-        // checking s is empty if push val and set to the empty
-        if (s.empty()) {
-            s.push(val);
-            mini = val;  // Initialize mini with the value
-        } else {
-            long long curr = val;  // Use long long for the current value
-            if (curr < mini) {
-                // push the encoded value
-                long long valX = 2 * curr - mini;  // Avoid overflow by using long long
-                s.push(valX);
-                // update mini
-                mini = val;
-            } else {
-                // if curr is greater than or equal to mini, simply push it
-                s.push(curr);
+    stack<long long>st;
+    long long int minValue;
+    // here special key is these formula
+    // val' = 2 * val - minVal (that why we using long, multiple with 2 with int)
+    MinStack() {
+        
+    }
+    
+    void push(int value) {
+        if(st.empty()){
+            st.push(value);
+            minValue = value;
+        }else{
+            if(value < minValue){
+                // push here value dash
+                st.push((long long)2*value -  minValue);
+                minValue = value;
+            }else{
+               st.push(value); 
             }
         }
     }
-
+    
     void pop() {
-        // checking for empty condition
-        if (s.empty()) {
-            cout << "Stack underflow";
-            return;
+        // when i we pop then we want change min value
+        if(st.top() < minValue){
+            // we have dash value 
+            // we have value (here value equal to minValue)
+            minValue = 2*minValue - st.top();
         }
-
-        long long curr = s.top();
-        s.pop();
-        if (curr > mini) {
-            // Do nothing, just pop the element
-        } else {
-            // Update mini to its previous state
-            long long prevMin = mini;
-            mini = 2 * mini - curr;  // Restore the previous mini value
-        }
+        st.pop();
     }
-
+    
     int top() {
-        if (s.empty()) {
-            return -1;
+        // here logic is when i pop the modify value the how we know that is modified with
+        // formula
+        // simple mathmatical concept is 
+        // minValue is alway greater then is pushed because
+        // minValue = -3 
+        // and St.top() = -4
+        // when our minValue is greater than the expected value then we the formaula
+        if(st.top() < minValue){
+            return minValue;
+        }else{
+            return st.top();
         }
-        long long curr = s.top();
-        if (curr < mini) {
-            // curr is encoded, so return mini
-            return mini;
-        } else {
-            return curr;
-        }
-    }
 
+    }
+    
     int getMin() {
-        if (s.empty()) {
-            return -1;
-        }
-        return mini;
+        return minValue;
     }
 };
 
 /**
  * Your MinStack object will be instantiated and called as such:
  * MinStack* obj = new MinStack();
- * obj->push(val);
+ * obj->push(value);
  * obj->pop();
  * int param_3 = obj->top();
  * int param_4 = obj->getMin();
